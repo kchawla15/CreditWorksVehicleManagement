@@ -1,205 +1,66 @@
-## RideMate NZ - Carpool Web Application
+# CreditWorks Vehicle Management
 
-## Overview
+A web application for managing vehicles and vehicle weight categories, developed as part of the CreditWorks Software Engineer technical assignment.
 
-RideMate NZ is a web-based carpooling application built using ASP.NET Core MVC.
-It allows users to offer rides, find available rides, and book seats in a simple and efficient way.
+The application allows users to:
 
-The application is deployed on Microsoft Azure with a fully automated CI/CD pipeline using GitHub Actions.
+- Add and view vehicles
+- Select a manufacturer from the configured manufacturer list
+- Automatically determine a vehicle's category from its weight
+- Sort vehicles by owner, manufacturer, year, and weight
+- Create, edit, and delete vehicle weight categories
+- Assign an icon to each category
+- Maintain continuous category ranges with no gaps or overlaps
+- Automatically reflect category definition changes for existing vehicles
 
----
+## Technology Stack
 
-## Live Application
+- C#
+- ASP.NET Core MVC
+- .NET 9
+- Entity Framework Core 9
+- SQL Server
+- SQL Server LocalDB for local development
+- Razor Views
+- Bootstrap
+- xUnit
+- Entity Framework Core InMemory provider for unit tests
 
-Production URL:
-https://ridemate-nz.azurewebsites.net
+## Project Structure
 
----
+The solution contains two projects:
 
-## Features
+### CreditWorksVehicleManagement
 
-### User Authentication
+The main ASP.NET Core MVC application.
 
-* Register and login functionality using ASP.NET Identity
-* Secure user management with role-based structure
+Main areas:
 
-### Offer Ride
+- `Controllers` - Handles HTTP requests and coordinates application operations
+- `Models` - Domain entities
+- `ViewModels` - Models used specifically by the UI
+- `Services` - Business logic, including vehicle category rules
+- `Data` - EF Core DbContext and database configuration
+- `Views` - Razor UI views
+- `Migrations` - EF Core database migrations
+- `wwwroot` - Static CSS and other frontend assets
 
-* Users can create rides with:
+### CreditWorksVehicleManagement.Tests
 
-  * Source location
-  * Destination
-  * Date and time
-  * Available seats
+Contains automated tests for:
 
-### Find Ride
+- Category determination
+- Category boundary behaviour
+- Category configuration validation
+- Category changes
+- Vehicle validation
+- Vehicle sorting
 
-* Search rides by:
+## Database
 
-  * From location
-  * To location
-* Displays matching rides
+The application uses SQL Server through Entity Framework Core.
 
-### Book Ride
+For local development, the configured SQL Server instance is:
 
-* Users can book available seats
-* Seat availability updates automatically
-
-### Cancel Booking
-
-* Users can cancel bookings
-* Seats are restored back to availability
-
-### Location Autocomplete
-
-* Integrated Google Places API
-* Restricted to New Zealand locations only
-
----
-
-## Tech Stack
-
-### Frontend
-
-* HTML5
-* CSS
-* Bootstrap
-* JavaScript
-
-### Backend
-
-* ASP.NET Core MVC (.NET 8)
-* C#
-
-### Database
-
-* Azure SQL Database
-
-### Authentication
-
-* ASP.NET Core Identity
-
-### Cloud & DevOps
-
-* Microsoft Azure App Service
-* GitHub Actions (CI/CD pipeline)
-
----
-
-## Architecture
-
-* MVC (Model-View-Controller) pattern
-* Entity Framework Core for database operations
-* Azure App Service for hosting
-* Azure SQL for persistent storage
-
----
-
-## CI/CD Pipeline
-
-* Code pushed to GitHub triggers deployment automatically
-* GitHub Actions builds and deploys application to Azure
-* No manual deployment required
-
-Workflow file location:
-
-```
-.github/workflows/
-```
-
----
-
-## Database Configuration
-
-The application uses Azure SQL Database.
-
-Connection string is configured securely in Azure App Service:
-
-```
-App Service → Configuration → Connection Strings
-```
-
-Key:
-
-```
-DefaultConnection
-```
-
----
-
-## Local Setup Instructions
-
-### Prerequisites
-
-* Visual Studio 2022
-* .NET 8 SDK
-* SQL Server / Azure SQL
-
----
-
-### Steps
-
-1. Clone repository:
-
-```
-git clone https://github.com/kchawla15/CarPoolingApp.git
-```
-
-2. Open solution in Visual Studio
-
-3. Update connection string in:
-
-```
-appsettings.json
-```
-
-4. Run migrations:
-
-```
-Update-Database
-```
-
-5. Run application:
-
-```
-F5 or Ctrl + F5
-```
-
----
-
-## Deployment Steps (Azure)
-
-1. Create Azure App Service
-2. Connect GitHub repository via Deployment Center
-3. Configure connection string in Azure
-4. Automatic deployment via GitHub Actions
-
----
-
-## Security Notes
-
-* Database credentials are stored in Azure Configuration, not in code
-* Google API key should be restricted to domain usage
-* HTTPS enforced in production
-
----
-
-## Future Improvements
-
-* Email notifications for bookings
-* Payment integration
-* Ride rating system
-* Admin dashboard
-* Map route visualization
-
----
-
-## Author
-
-Kshitij Chawla
-
----
-
-## License
-
-This project is for educational purposes.
+```text
+(localdb)\MSSQLLocalDB
